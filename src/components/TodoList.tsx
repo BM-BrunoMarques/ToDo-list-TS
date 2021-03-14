@@ -1,18 +1,23 @@
 import React from "react";
+import "./TodoList.css";
 
 interface TodoListProps {
-  allTodos: { id: string; text: string }[];
+  todos: { id: string; text: string }[];
+  onDelTodo: (id: string) => void;
 }
 
 const TodoList: React.FC<TodoListProps> = (props) => {
-  const { allTodos } = props;
-  
+  const { todos, onDelTodo } = props;
+
   return (
     <ul>
-      {allTodos.length && (
+      {todos.length > 0 && (
         <div>
-          {allTodos.map((todo) => (
-            <li key={todo.id}>{todo.text}</li>
+          {todos.map((todo: any) => (
+            <li key={todo.id}>
+              <span>{todo.text}</span>
+              <button onClick={onDelTodo.bind(null, todo.id)}>Done.</button>
+            </li>
           ))}
         </div>
       )}
